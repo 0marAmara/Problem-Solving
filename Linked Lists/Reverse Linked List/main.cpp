@@ -1,6 +1,6 @@
-#include <iostream>
-using namespace std;
+#include <bits/stdc++.h>
 
+using namespace std;
 
 struct ListNode {
     int val;
@@ -9,17 +9,30 @@ struct ListNode {
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
-
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode* reversedList = nullptr;
+        ListNode *revList= nullptr;
         while(head){
-            ListNode* temp = head;
-            head = head->next;
-            temp->next = reversedList;
-            reversedList = temp;
+            revList=new ListNode(head->val,revList);
+            head=head->next;
         }
-        return reversedList;
+        return revList;
     }
 };
+
+
+int main(){
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
+    Solution s;
+    ListNode *ans = s.reverseList(head);
+    while(ans){
+        cout << ans->val << " ";
+        ans = ans->next;
+    }
+    return 0;
+}
