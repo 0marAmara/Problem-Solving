@@ -1,21 +1,35 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
+
 using namespace std;
 
-bool searchMatrix(vector<vector<int>>& matrix, int target) {
-    int row=matrix.size(),col=matrix[0].size(),left=0,right=row*col-1,mid;
-    while(left<=right){
-        mid=left+(right-left)/2;
-        if(matrix[mid/col][mid%col]==target) return true;
-        else if(matrix[mid/col][mid%col]<target) left=mid+1;
-        else right=mid-1;
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>> &matrix, int target) {
+        int l = 0, col = matrix[0].size(), row = matrix.size(), r = row * col;
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            if (matrix[mid / col][mid % col] == target)
+                return true;
+            if (matrix[mid / col][mid % col] > target) {
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return false;
+
     }
-    return false;
-}
+
+};
+
 
 int main() {
-    vector<vector<int>> matrix={ { 1, 1 }};
-    int target=2;
-    cout<<searchMatrix(matrix,target)<<endl;
+    Solution s = Solution();
+    vector<vector<int>> matrix = {{1,  3,  5,  7},
+                                  {10, 11, 16, 20},
+                                  {23, 30, 34, 60}};
+    int target = 3;
+    cout << s.searchMatrix(matrix, target) << endl;
+
     return 0;
 }
