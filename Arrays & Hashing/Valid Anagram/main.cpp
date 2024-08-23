@@ -2,25 +2,24 @@
 using namespace std;
 
 bool isAnagram(string s, string t) {
-    int sLtrs[26] = {0}, tLtrs[26] = {0};
-    if (s.length() != t.length()) {
+    if (s.size() != t.size())
         return false;
+    int freqMap[26] = {0};
+    for (size_t i = 0; i < s.size(); i++)
+    {
+        freqMap[s[i] - 'a']++;
+        freqMap[t[i] - 'a']--;
     }
-    for(char c : s) {
-        sLtrs[c - 'a']++;
-    }
-    for(char c : t) {
-        tLtrs[c - 'a']++;
-    }
-    for(int i = 0; i < 26; i++) {
-        if (sLtrs[i] != tLtrs[i]) {
+    for (size_t i = 0; i < 26; i++)
+    {
+        if (freqMap[i] != 0)
             return false;
-        }
     }
     return true;
 }
 
-int main() {
+int main()
+{
     string s = "anagram", t = "nagaram";
     cout << isAnagram(s, t) << endl;
     return 0;
